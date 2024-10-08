@@ -1,0 +1,28 @@
+
+<head>
+    <title>Отзывы</title>
+    {{>feedbacksCss}}
+</head>
+
+
+<body>
+
+<main>
+    <div class="add-feedback-container">
+        <form class="add-feedback">
+            <label for="feedback" class="add-feedback-label">Написать отзыв</label>
+            <input type="text" id="feedback">
+            <button type="submit" class="add-feedback-button">Отправить</button>
+        </form>
+    </div>
+
+    <div class="feedbacks-list">
+        <template id="feedback-template">
+            <div class="feed"></div>
+        </template>
+    </div>
+</main>
+<script src="../js/script.js"></script>
+<script defer type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+</body>
+

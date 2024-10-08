@@ -1,0 +1,87 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           Int      @id @default(autoincrement())
+  username     String   @unique
+  email        String   @unique
+  password     String
+  registrationDate DateTime @default(now())
+  rating       Int
+  balance      Float
+  givenReviews      Review[]   @relation("UserGivenReviews")
+  receivedReviews   Review[]   @relation("UserReceivedReviews")
+  user1Chats        Chat[]     @relation("User1Chats")
+  user2Chats        Chat[]     @relation("User2Chats")
+  transactionsAsBuyer Transaction[] @relation("BuyerTransactions")
+  transactionsAsSeller Transaction[] @relation("SellerTransactions")
+  itemsForSale      Item[]     @relation("SellerItems")
+  sentMessages      Message[] @relation("SentMessages")
+  receivedMessages  Message[] @relation("ReceivedMessages")
+}
+
+model Review {
+  id       Int      @id @default(autoincrement())
+  userId   Int
+  targetUserId Int
+  text     String
+  rating   String
+  date     DateTime @default(now())
+  giver       User     @relation("UserGivenReviews", fields: [userId], references: [id])
+  receiver    User     @relation("UserReceivedReviews", fields: [targetUserId], references: [id])
+
+}
+
+model Chat {
+  id         Int      @id @default(autoincrement())
+  user1Id    Int
+  user2Id    Int
+  createdAt  DateTime @default(now())
+  user1     User     @relation("User1Chats", fields: [user1Id], references: [id])
+  user2     User     @relation("User2Chats", fields: [user2Id], references: [id])
+  messages   Message[]
+}
+
+model Message {
+  id        Int    @id @default(autoincrement())
+  content   String
+  senderId  Int
+  receiverId Int
+  chatId    Int
+  sender    User   @relation("SentMessages", fields: [senderId], references: [id])
+  receiver  User   @relation("ReceivedMessages", fields: [receiverId], references: [id])
+  chat      Chat   @relation(fields: [chatId], references: [id])
+}
+
+model Item {
+  id          Int      @id @default(autoincrement())
+  name        String
+  description String
+  category    String
+  price       Float
+  image       String
+  exterior   String
+  sellerId    Int
+  seller      User     @relation("SellerItems", fields: [sellerId], references: [id])
+  transactions Transaction[]
+}
+
+model Transaction {
+  id         Int      @id @default(autoincrement())
+  buyerId    Int
+  sellerId   Int
+  itemId     Int
+  date       DateTime @default(now())
+  amount     Float
+  status     String
+  buyer     User     @relation("BuyerTransactions", fields: [buyerId], references: [id])
+  seller    User     @relation("SellerTransactions", fields: [sellerId], references: [id])
+  item      Item     @relation(fields: [itemId], references: [id])
+
+}

@@ -1,0 +1,50 @@
+.add-feedback {
+    padding-top: 10em;
+    display: flex;
+    color: black;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.add-feedback-label {
+    margin: 25px;
+    font-size: 25px;
+}
+
+input {
+    width: 30em;
+    height: 40px;
+    padding: 5px 10px 5px 10px;
+    border: 1px solid #999;
+    font-size: 16px;
+    border-radius: 10px;
+}
+
+.add-feedback-button {
+    margin-top: 10px;
+    width: 10em;
+    padding: 10px 15px;
+    font-size: 25px;
+    background-color: #90B478;
+    border-radius: 10px;
+}
+
+.feedbacks-list {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.feed {
+    background-color: #8ef54b;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10px auto;
+    border: 1px solid black;
+    width: 30em;
+    height: 3em;
+}
